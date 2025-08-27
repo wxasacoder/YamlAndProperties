@@ -27,19 +27,29 @@
     </extensions>
 
     <actions>
-        <action id="YamlToProperties" class="com.wx.yamlandproperties.YamlToPropertiesAction" text="yaml2properties" description="Convert YAML to Properties">
+        <action id="YamlToProperties" class="com.wx.yamlandproperties.YamlToPropertiesAction" text="yaml2properties"
+                description="Convert YAML to Properties">
             <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
         </action>
-        <action id="Properties2Yaml" class="com.wx.yamlandproperties.PropertiesToYamlAction" text="properties2yaml" description="Convert Properties To YAML">
+        <action id="Properties2Yaml" class="com.wx.yamlandproperties.PropertiesToYamlAction" text="properties2yaml"
+                description="Convert Properties To YAML">
             <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
         </action>
 
 
-        <action id="your.plugin.PropertiesToYamlAction"
+        <action id="PropertiesToYamlSelectedAction"
                 class="com.wx.yamlandproperties.PropertiesToYamlSelectedAction"
                 text="properties2yaml"
                 description="Convert selected properties to YAML and copy to clipboard">
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
         </action>
-        </actions>
+
+        <action id="YamlToPropertiesSelectedAction"
+                class="com.wx.yamlandproperties.YamlToPropertiesSelectedAction"
+                text="yaml2properties"
+                description="Convert selected properties to properties and copy to clipboard">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+        </action>
+
+    </actions>
 </idea-plugin>
