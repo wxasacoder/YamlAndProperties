@@ -10,6 +10,7 @@ import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.wx.yamlandproperties.core.YamlAndProperties;
+import com.wx.yamlandproperties.notify.YamlAndPropertiesCommonNotify;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
@@ -46,18 +47,14 @@ public class PropertiesToYamlAction extends AnAction {
             VfsUtil.markDirtyAndRefresh(false, true, true, new File(whereFileIn));
             Notifications.Bus.notify(
                     new Notification(
-                            "YamlAndProperties",  // 通知组 ID，可随意定义
-                            "转换成功",      // 标题
-                            "生成成功，请在同级目下寻找: "+yamlFileName, // 内容
-                            NotificationType.INFORMATION // 类型：INFORMATION、WARNING、ERROR
+                            "YamlAndProperties",
+                            "转换成功",
+                            "生成成功，请在同级目下寻找: "+yamlFileName,
+                            NotificationType.INFORMATION
                     )
             );
         } catch (Exception ex) {
-            if(ex instanceof RuntimeException){
-                Messages.showInfoMessage(ex.getMessage() ,"转换失败，语法错误请检查");
-                return;
-            }
-            Messages.showInfoMessage("无法判定的错误","转换失败");
+            YamlAndPropertiesCommonNotify.processExpAsPopUp(ex);
         }
     }
 }

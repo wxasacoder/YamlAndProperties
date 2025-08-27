@@ -8,8 +8,8 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.ide.CopyPasteManager;
-import com.intellij.openapi.ui.Messages;
 import com.wx.yamlandproperties.core.YamlAndProperties;
+import com.wx.yamlandproperties.notify.YamlAndPropertiesCommonNotify;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.datatransfer.StringSelection;
@@ -35,16 +35,15 @@ public class YamlToPropertiesSelectedAction extends AnAction {
             // 直接显示通知（标题、内容、类型）
             Notifications.Bus.notify(
                     new Notification(
-                            "YamlAndProperties",  // 通知组 ID，可随意定义
-                            "转换成功",      // 标题
-                            "已复制到剪切板！", // 内容
-                            NotificationType.INFORMATION // 类型：INFORMATION、WARNING、ERROR
+                            "YamlAndProperties",
+                            "转换成功",
+                            "已复制到剪切板！",
+                            NotificationType.INFORMATION
                     )
             );
         } catch (Exception ex) {
-            Messages.showInfoMessage(ex.getMessage() ,"转换失败");
+            YamlAndPropertiesCommonNotify.processExpAsPopUp(ex);
         }
-
     }
 
     @Override

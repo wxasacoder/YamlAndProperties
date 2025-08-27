@@ -203,17 +203,4 @@ public class YamlAndProperties {
         }
     }
 
-    public static void main(String[] args) {
-//        InputStream resourceAsStream = YamlAndProperties.class.getClassLoader().getResourceAsStream("a.yaml");
-//
-//        Map<String, Object> yaml2FlapMap = yaml2FlapMap(resourceAsStream);
-//        PrintWriter printWriter = new PrintWriter(System.out);
-//        yaml2FlapMap.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach((e)->{
-//            String properties = e.getKey().concat("=").concat(Optional.ofNullable(e.getValue()).map(Object::toString).orElse(""));
-//            printWriter.println(properties);
-//        });
-//        InputStream properStream = YamlAndProperties.class.getClassLoader().getResourceAsStream("b.properties");
-//        yamlMustAllInPropertiesAndValueMustEquals(resourceAsStream,properStream);
-//        YamlAndProperties .convertPropertiesToYaml(YamlAndProperties.class.getClassLoader().getResourceAsStream("b.properties"));
-    }
 }
