@@ -1,12 +1,8 @@
-<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M32.0845 7.94025V4H24.0203V7.9896H16.029V4H7.91553V7.94025H4V36H16.0044V32.0045C16.0058 30.9457 16.4274 29.9308 17.1766 29.1826C17.9258 28.4345 18.9412 28.0143 20 28.0143C21.0588 28.0143 22.0743 28.4345 22.8234 29.1826C23.5726 29.9308 23.9942 30.9457 23.9956 32.0045V36H36V7.94025H32.0845Z"
-          fill="url(#paint0_linear)"/>
-    <defs>
-        <linearGradient id="paint0_linear" x1="2.94192" y1="4.89955" x2="37.7772" y2="39.7345"
-                        gradientUnits="userSpaceOnUse">
-            <stop offset="0.15937" stop-color="#3BEA62"/>
-            <stop offset="0.5404" stop-color="#3C99CC"/>
-            <stop offset="0.93739" stop-color="#6B57FF"/>
-        </linearGradient>
-    </defs>
+<svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M 10 20 L 50 20 L 50 80 L 10 80 Z" fill="#4CAF50" />
+    <text x="20" y="55" font-family="Arial, sans-serif" font-size="20" fill="white" font-weight="bold">Y</text>
+    <path d="M 60 20 L 90 20 L 90 80 L 60 80 Z" fill="#2196F3" />
+    <text x="68" y="55" font-family="Arial, sans-serif" font-size="20" fill="white" font-weight="bold">P</text>
+    <path d="M 45 35 L 55 35 L 55 30 L 65 40 L 55 50 L 55 45 L 45 45 Z" fill="#000000" />
+    <path d="M 55 65 L 45 65 L 45 70 L 35 60 L 45 50 L 45 55 L 55 55 Z" fill="#000000" />
 </svg>
