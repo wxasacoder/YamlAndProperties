@@ -9,6 +9,7 @@ import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.ide.CopyPasteManager;
 import com.intellij.openapi.ui.Messages;
+import com.wx.yamlandproperties.core.YamlAndProperties;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.datatransfer.StringSelection;

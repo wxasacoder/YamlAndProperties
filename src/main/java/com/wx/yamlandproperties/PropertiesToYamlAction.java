@@ -9,6 +9,7 @@ import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.wx.yamlandproperties.core.YamlAndProperties;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
@@ -53,7 +54,7 @@ public class PropertiesToYamlAction extends AnAction {
             );
         } catch (Exception ex) {
             if(ex instanceof RuntimeException){
-                Messages.showInfoMessage(ex.getMessage() ,"转换失败");
+                Messages.showInfoMessage(ex.getMessage() ,"转换失败，语法错误请检查");
                 return;
             }
             Messages.showInfoMessage("无法判定的错误","转换失败");

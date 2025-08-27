@@ -1,4 +1,4 @@
-package com.wx.yamlandproperties;
+package com.wx.yamlandproperties.core;
 
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
@@ -26,6 +26,9 @@ public class YamlAndProperties {
 
 
     public static Map<String,Object> yaml2FlapMap(InputStream fileInputStream){
+        return yaml2FlapMap(new InputStreamReader(fileInputStream));
+    }
+    public static Map<String,Object> yaml2FlapMap(Reader fileInputStream){
         try (fileInputStream) {
             Yaml yaml = new Yaml();
             Object load = yaml.load(fileInputStream);
@@ -89,6 +92,24 @@ public class YamlAndProperties {
         diff.forEach(System.out::println);
     }
 
+    public static String convertYamlToProperties(Reader reader){
+        Map<String, Object> stringObjectMap = yaml2FlapMap(reader);
+        StringBuilder sb = new StringBuilder();
+        stringObjectMap.forEach((k,v)->{
+            sb.append(k).append("=").append(v).append("\n");
+        });
+        return sb.toString();
+    }
+
+    public static void convertYamlToProperties(Reader reader, Writer writer) throws IOException {
+        try {
+            String s = convertYamlToProperties(reader);
+            writer.write(s);
+            writer.flush();
+        }finally {
+            writer.close();
+        }
+    }
 
     public static void convertPropertiesToYaml(Reader reader, Writer writer) throws Exception {
         String s = convertPropertiesToYaml(reader);
