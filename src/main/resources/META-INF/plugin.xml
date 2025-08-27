@@ -52,4 +52,11 @@
         </action>
 
     </actions>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <notificationGroup id="YamlAndProperties"
+                           displayType="BALLOON"
+        toolWindowId="Project"
+        isLogByDefault="false"/>
+    </extensions>
 </idea-plugin>

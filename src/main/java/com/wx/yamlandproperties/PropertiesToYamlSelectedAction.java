@@ -35,7 +35,7 @@ public class PropertiesToYamlSelectedAction extends AnAction {
             Notifications.Bus.notify(
                     new Notification(
                             "YamlAndProperties",  // 通知组 ID，可随意定义
-                            "提示",      // 标题
+                            "转换成功",      // 标题
                             "已复制到剪切板！", // 内容
                             NotificationType.INFORMATION // 类型：INFORMATION、WARNING、ERROR
                     )
