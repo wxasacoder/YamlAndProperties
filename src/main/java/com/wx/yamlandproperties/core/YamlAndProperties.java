@@ -96,7 +96,7 @@ public class YamlAndProperties {
         Map<String, Object> stringObjectMap = yaml2FlapMap(reader);
         StringBuilder sb = new StringBuilder();
         stringObjectMap.forEach((k,v)->{
-            sb.append(k).append("=").append(v).append("\n");
+            sb.append(k).append("=").append(trans(v)).append("\n");
         });
         return sb.toString();
     }
@@ -187,6 +187,15 @@ public class YamlAndProperties {
             }
         }
         return o;
+    }
+
+    private static Object trans(Object str){
+        if(str instanceof String string){
+            return string.replace("\n", "\\n")
+                    .replace("\r", "\\r")
+                    .replace("\t", "\\t");
+        }
+        return str;
     }
 
 
