@@ -5,6 +5,7 @@ import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
 import java.util.*;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -198,18 +199,50 @@ public class YamlAndProperties {
         return str;
     }
 
-
     private static void yamlArrayProcess(Map<String, Object> lastOne,String lastKey, Map<String, Object> o){
         Pattern compile = Pattern.compile("\\[\\d+\\]|\\d+");
+        Pattern caseTwo = Pattern.compile("(.+)\\[\\d+\\]");
         if(o.keySet().stream().anyMatch(e->compile.matcher(e).matches() ) &&  Objects.nonNull(lastKey) && Objects.nonNull(lastKey)){
             lastOne.put(lastKey, o.values().stream().collect(Collectors.toList()));
         }else {
             o.forEach((k,v)->{
                 if(v instanceof Map<?,?>){
-                    yamlArrayProcess(o, k, (Map<String, Object>)v);
+                    Map<String, Object> map = (Map<String, Object>) v;
+                    Map<String, Object> mapTemp = new LinkedHashMap<>();
+                    map.forEach((key,value)->{
+                        Matcher matcher = caseTwo.matcher(key);
+                        if(matcher.matches()){
+                            matcher.group();
+                            String group = matcher.group(1);
+                            mapTemp.compute(group, (keyOne,old)->{
+                                List list = Optional.ofNullable(old).map(e -> (List) old).orElse(new ArrayList<>());
+                                list.add(value);
+                                return list;
+                            });
+                        }else {
+                            mapTemp.put(key, value);
+                        }
+                    });
+                    o.put(k, mapTemp);
+                    yamlArrayProcess(o, k, mapTemp);
                 }
             });
         }
     }
+
+
+//
+//    private static void yamlArrayProcess(Map<String, Object> lastOne,String lastKey, Map<String, Object> o){
+//        Pattern compile = Pattern.compile("\\[\\d+\\]|\\d+");
+//        if(o.keySet().stream().anyMatch(e->compile.matcher(e).matches() ) &&  Objects.nonNull(lastKey) && Objects.nonNull(lastKey)){
+//            lastOne.put(lastKey, o.values().stream().collect(Collectors.toList()));
+//        }else {
+//            o.forEach((k,v)->{
+//                if(v instanceof Map<?,?>){
+//                    yamlArrayProcess(o, k, (Map<String, Object>)v);
+//                }
+//            });
+//        }
+//    }
 
 }
