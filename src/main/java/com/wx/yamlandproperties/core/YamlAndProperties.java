@@ -214,7 +214,10 @@ public class YamlAndProperties {
                 if(v instanceof Map<?,?>){
                     Map<String, Object> map = (Map<String, Object>) v;
                     Map<String, Object> mapTemp = new LinkedHashMap<>();
-                    map.forEach((key,value)->{
+                    //  此处排序为了保证yaml的转化为properties的时候保证数组内的顺序
+                    map.entrySet().stream().sorted(Comparator.comparing(a -> a.getKey().toString())).forEach(item->{
+                        String key = item.getKey();
+                        Object value = item.getValue();
                         Matcher matcher = caseTwo.matcher(key);
                         if(matcher.matches()){
                             matcher.group();
