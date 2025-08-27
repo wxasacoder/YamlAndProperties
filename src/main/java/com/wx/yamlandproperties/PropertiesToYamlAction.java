@@ -1,5 +1,8 @@
 package com.wx.yamlandproperties;
 
+import com.intellij.notification.Notification;
+import com.intellij.notification.NotificationType;
+import com.intellij.notification.Notifications;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
@@ -34,8 +37,15 @@ public class PropertiesToYamlAction extends AnAction {
             String yaml = whereFileIn + name.replace(".properties", ".yaml");
             InputStream inputStream = data.getInputStream();
             FileOutputStream fileOutputStream = new FileOutputStream(yaml);
-            YamlAndProperties.convertPropertiesToYaml(inputStream, fileOutputStream);
-            Messages.showInfoMessage("请磁盘刷新文件","转换成功");
+            YamlAndProperties.convertPropertiesToYaml(new InputStreamReader(inputStream), new OutputStreamWriter(fileOutputStream));
+            Notifications.Bus.notify(
+                    new Notification(
+                            "YamlAndProperties",  // 通知组 ID，可随意定义
+                            "转换成功",      // 标题
+                            "请磁盘刷新文件！", // 内容
+                            NotificationType.INFORMATION // 类型：INFORMATION、WARNING、ERROR
+                    )
+            );
         } catch (Exception ex) {
             if(ex instanceof RuntimeException){
                 Messages.showInfoMessage(ex.getMessage() ,"转换失败");

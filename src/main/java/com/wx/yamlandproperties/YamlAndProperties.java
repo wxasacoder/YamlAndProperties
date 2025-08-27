@@ -90,10 +90,18 @@ public class YamlAndProperties {
     }
 
 
+    public static void convertPropertiesToYaml(Reader reader, Writer writer) throws Exception {
+        String s = convertPropertiesToYaml(reader);
+        try {
+            writer.write(s);
+            writer.flush();
+        }finally {
+            writer.close();
+        }
+    }
 
-    public static void convertPropertiesToYaml(InputStream properties, OutputStream outYamlStream) throws Exception {
+    public static String convertPropertiesToYaml(Reader properties) throws Exception {
         Properties propertiesAsPOJO = new Properties();
-        Writer printWriter = null;
         try (properties){
             propertiesAsPOJO.load(properties);
             Map<String, Object> yamlMap = new LinkedHashMap<>();
@@ -137,13 +145,7 @@ public class YamlAndProperties {
             options.setPrettyFlow(true);
 
             Yaml yaml = new Yaml(options);
-            printWriter = new PrintWriter(outYamlStream);
-            yaml.dump(yamlMap, printWriter);
-            printWriter.flush();
-        } finally {
-            if(Objects.nonNull(printWriter)){
-                printWriter.close();
-            }
+            return yaml.dump(yamlMap);
         }
     }
 

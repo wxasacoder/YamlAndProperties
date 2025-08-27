@@ -13,8 +13,8 @@
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/best-practices-for-listing.html#plugin-description -->
     <description><![CDATA[
-        Enter short description for your plugin here.<br>
-        <em>most HTML tags may be used</em>
+        convert yaml and properties.<br>
+        <em>convert yaml and properties</em>
     ]]></description>
 
     <!-- Product and plugin compatibility requirements.
@@ -33,5 +33,13 @@
         <action id="Properties2Yaml" class="com.wx.yamlandproperties.PropertiesToYamlAction" text="properties2yaml" description="Convert Properties To YAML">
             <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
         </action>
-    </actions>
+
+
+        <action id="your.plugin.PropertiesToYamlAction"
+                class="com.wx.yamlandproperties.PropertiesToYamlSelectedAction"
+                text="properties2yaml"
+                description="Convert selected properties to YAML and copy to clipboard">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+        </action>
+        </actions>
 </idea-plugin>
