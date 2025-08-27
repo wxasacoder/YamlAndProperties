@@ -1,7 +1,9 @@
 package com.wx.yamlandproperties.core;
 
+import com.wx.yamlandproperties.exceptions.YamlAndPropertiesRuntimeException;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.parser.ParserException;
 
 import java.io.*;
 import java.util.*;
@@ -36,7 +38,10 @@ public class YamlAndProperties {
             Map<String, Object> result = new LinkedHashMap<>();
             flapYamlObject(null, load, result);
             return result;
-        } catch (IOException e) {
+        } catch (Exception e) {
+            if(e instanceof ParserException ex){
+                throw new YamlAndPropertiesRuntimeException(ex.getMessage());
+            }
             throw new RuntimeException(e);
         }
     }
