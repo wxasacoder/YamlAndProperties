@@ -3,10 +3,7 @@ package com.wx.yamlandproperties;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -23,6 +20,10 @@ public class YamlAndProperties {
      * 转换yaml数组到properties
      */
     private static final String PROP_LIST_TEMP = "[%s]";
+    private static Pattern DIGITS = Pattern.compile("^[0-9]+$");
+    private static Pattern DIGITS_FLOAT = Pattern.compile("^[0-9]+\\.[0-9]+$");
+    private static Pattern BOOLEAN = Pattern.compile("^true|false$");
+
 
     public static Map<String,Object> yaml2FlapMap(InputStream fileInputStream){
         try (fileInputStream) {
@@ -47,7 +48,7 @@ public class YamlAndProperties {
         if(o instanceof List<?> list){
             IntStream.range(0, list.size()).forEach(e->{
                 Object o1 = list.get(e);
-                result.put(prefix+String.format(PROP_LIST_TEMP, e), o1);
+                flapYamlObject(Optional.ofNullable(prefix).map(e1->e1+ String.format(PROP_LIST_TEMP, e)).orElse(""), o1, result);
             });
             return;
         }
@@ -90,12 +91,15 @@ public class YamlAndProperties {
 
 
 
-    public static void convertPropertiesToYaml(InputStream properties, OutputStream yamlOutPutStream) throws Exception {
+    public static void convertPropertiesToYaml(InputStream properties, OutputStream outYamlStream) throws Exception {
         Properties propertiesAsPOJO = new Properties();
+        Writer printWriter = null;
         try (properties){
             propertiesAsPOJO.load(properties);
             Map<String, Object> yamlMap = new LinkedHashMap<>();
-            propertiesAsPOJO.forEach((key, value)->{
+            propertiesAsPOJO.entrySet().stream().sorted(Comparator.comparing(a -> Long.valueOf(a.getKey().toString().length()))).forEach((e)->{
+                Object key = e.getKey();
+                Object value = e.getValue();
                 String[] split = key.toString().split("\\.");
                 Map<String, Object> yamlMapTemp = yamlMap;
                 for (int i = 0; i < split.length; i++) {
@@ -103,7 +107,7 @@ public class YamlAndProperties {
                     Object o = yamlMapTemp.get(keyPart);
                     if(Objects.isNull(o)){
                         if(i == split.length - 1){
-                            yamlMapTemp.put(keyPart, value);
+                            yamlMapTemp.put(keyPart, typeProcess(value));
                         }else {
                             Map<String, Object> objectObjectHashMap = new LinkedHashMap<>();
                             yamlMapTemp.put(keyPart, objectObjectHashMap);
@@ -111,13 +115,17 @@ public class YamlAndProperties {
                         }
                     }else {
                         if(!(o instanceof Map)){
-                            throw new RuntimeException("配置文件值重复！");
+                            String compositeKey = IntStream.range(i, split.length).mapToObj(index -> split[index]).collect(Collectors.joining("."));
+                            yamlMapTemp.put(compositeKey, typeProcess(value));
+                            break;
+//                            o1.put(keyPart,value);
+                        }else {
+                            Map o1 = (Map) o;
+                            if(i == split.length - 1 ){
+                                o1.put(keyPart, typeProcess(value));
+                            }
+                            yamlMapTemp = o1;
                         }
-                        Map o1 = (Map) o;
-                        if(i == split.length - 1 ){
-                            o1.put(keyPart,value);
-                        }
-                        yamlMapTemp = o1;
                     }
                 }
             });
@@ -129,13 +137,33 @@ public class YamlAndProperties {
             options.setPrettyFlow(true);
 
             Yaml yaml = new Yaml(options);
-            yaml.dump(yamlMap, new PrintWriter(yamlOutPutStream));
-            yamlOutPutStream.flush();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }finally {
-            yamlOutPutStream.close();
+            printWriter = new PrintWriter(outYamlStream);
+            yaml.dump(yamlMap, printWriter);
+            printWriter.flush();
+        } finally {
+            if(Objects.nonNull(printWriter)){
+                printWriter.close();
+            }
         }
+    }
+
+    private static Object typeProcess(Object o){
+        if(o instanceof String string){
+            if (DIGITS.matcher(string).matches()) {
+                return Long.valueOf(o.toString());
+            }
+            if(DIGITS_FLOAT.matcher(string).matches()){
+                return Double.valueOf(o.toString());
+            }
+            if(BOOLEAN.matcher(string).matches()){
+                if("true".equals(string)){
+                    return true;
+                }else {
+                    return false;
+                }
+            }
+        }
+        return o;
     }
 
 
@@ -153,8 +181,16 @@ public class YamlAndProperties {
     }
 
     public static void main(String[] args) {
-//        InputStream aYaml = YamlAndProperties.class.getClassLoader().getResourceAsStream("sllerCore.yaml");
-//        InputStream bProper = YamlAndProperties.class.getClassLoader().getResourceAsStream("demeter.properties");
-//        yamlMustAllInPropertiesAndValueMustEquals(aYaml, bProper);
+//        InputStream resourceAsStream = YamlAndProperties.class.getClassLoader().getResourceAsStream("a.yaml");
+//
+//        Map<String, Object> yaml2FlapMap = yaml2FlapMap(resourceAsStream);
+//        PrintWriter printWriter = new PrintWriter(System.out);
+//        yaml2FlapMap.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach((e)->{
+//            String properties = e.getKey().concat("=").concat(Optional.ofNullable(e.getValue()).map(Object::toString).orElse(""));
+//            printWriter.println(properties);
+//        });
+//        InputStream properStream = YamlAndProperties.class.getClassLoader().getResourceAsStream("b.properties");
+//        yamlMustAllInPropertiesAndValueMustEquals(resourceAsStream,properStream);
+//        YamlAndProperties .convertPropertiesToYaml(YamlAndProperties.class.getClassLoader().getResourceAsStream("b.properties"));
     }
 }
