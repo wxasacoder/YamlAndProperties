@@ -3,6 +3,7 @@ package com.wx.yamlandproperties;
 import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationType;
 import com.intellij.notification.Notifications;
+import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
@@ -26,6 +27,12 @@ import java.util.regex.Pattern;
 public class PropertiesToYamlAction extends AnAction {
 
     Pattern PROPERTIES_FILE_SUFFIX = Pattern.compile(".+(\\.properties)");
+
+
+    @Override
+    public ActionUpdateThread getActionUpdateThread() {
+        return ActionUpdateThread.EDT;
+    }
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {

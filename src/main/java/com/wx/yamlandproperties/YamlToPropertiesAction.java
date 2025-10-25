@@ -3,6 +3,7 @@ package com.wx.yamlandproperties;
 import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationType;
 import com.intellij.notification.Notifications;
+import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
@@ -27,6 +28,13 @@ public class YamlToPropertiesAction extends AnAction {
 
 
     private static final Pattern YAML_PATTERN = Pattern.compile(".+(yaml|yml)");
+
+
+
+    @Override
+    public ActionUpdateThread getActionUpdateThread() {
+        return ActionUpdateThread.EDT;
+    }
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent anActionEvent) {

@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.wx"
-version = "1.0-SNAPSHOT"
+version = "2.1"
 
 repositories {
     mavenCentral()
@@ -29,7 +29,10 @@ dependencies {
 intellijPlatform {
     pluginConfiguration {
         ideaVersion {
-            sinceBuild = "251"
+//            sinceBuild = "251"
+
+            sinceBuild.set("232")
+            untilBuild.set("252.*")
         }
 
         changeNotes = """
@@ -41,8 +44,8 @@ intellijPlatform {
 tasks {
     // Set the JVM compatibility versions
     withType<JavaCompile> {
-        sourceCompatibility = "21"
-        targetCompatibility = "21"
+        sourceCompatibility = "17"
+        targetCompatibility = "17"
     }
 }
 

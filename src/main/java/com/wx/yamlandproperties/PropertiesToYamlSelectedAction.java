@@ -12,6 +12,7 @@ import com.wx.yamlandproperties.core.YamlAndProperties;
 import com.wx.yamlandproperties.notify.YamlAndPropertiesCommonNotify;
 import org.jetbrains.annotations.NotNull;
 
+import com.intellij.openapi.actionSystem.ActionUpdateThread;  // Add this import if missing
 import java.awt.datatransfer.StringSelection;
 import java.io.StringReader;
 
@@ -22,6 +23,13 @@ import java.io.StringReader;
  *
  */
 public class PropertiesToYamlSelectedAction extends AnAction {
+
+    @Override
+    public ActionUpdateThread getActionUpdateThread() {
+        return ActionUpdateThread.EDT;
+    }
+
+
     @Override
     public void actionPerformed(AnActionEvent anActionEvent) {
         // 获取编辑器和选中文本

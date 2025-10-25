@@ -43,3 +43,8 @@ bin/
 .idea
 .intellijPlatform
 gradle
+build
+.intellijPlatform
+.gradle
+gradlew
+gradlew.bat

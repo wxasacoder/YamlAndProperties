@@ -1,5 +1,6 @@
 package com.wx.yamlandproperties;
 
+import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.wx.yamlandproperties.gui.YamlAndPropertiesDialog;
@@ -18,4 +19,10 @@ public class ConvertWindowAction extends AnAction {
         dialog.setSize(1200, 630);
         dialog.show();
     }
+
+    @Override
+    public ActionUpdateThread getActionUpdateThread() {
+        return ActionUpdateThread.EDT;
+    }
+
 }
