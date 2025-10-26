@@ -33,7 +33,8 @@ public class PropertiesToYamlSelectedAction extends AnAction {
     @Override
     public void actionPerformed(AnActionEvent anActionEvent) {
         // 获取编辑器和选中文本
-        Editor editor = anActionEvent.getRequiredData(CommonDataKeys.EDITOR);
+        Editor editor = anActionEvent.getData(CommonDataKeys.EDITOR);
+//        Editor editor = anActionEvent.getRequiredData(CommonDataKeys.EDITOR);
         String selectedText = editor.getSelectionModel().getSelectedText();
         if (selectedText == null) return;
         try (StringReader reader = new StringReader(selectedText)){
