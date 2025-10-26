@@ -44,8 +44,8 @@ public class PropertiesToYamlSelectedAction extends AnAction {
             Notifications.Bus.notify(
                     new Notification(
                             "YamlAndProperties",
-                            "转换成功",
-                            "已复制到剪切板！",
+                            "Conversion successful",
+                            "Copied to clipboard！",
                             NotificationType.INFORMATION
                     )
             );

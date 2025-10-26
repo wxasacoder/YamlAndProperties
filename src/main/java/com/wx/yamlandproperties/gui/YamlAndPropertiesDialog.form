@@ -25,7 +25,9 @@
             <children>
               <component id="6464f" class="javax.swing.JTextArea" binding="propertiesArea">
                 <constraints/>
-                <properties/>
+                <properties>
+                  <text value="ForExample.TheYAMLFileShouldBePastedHere=helloWorld "/>
+                </properties>
               </component>
             </children>
           </scrollpane>
@@ -54,7 +56,9 @@
             <children>
               <component id="595b9" class="javax.swing.JTextArea" binding="yamlArea">
                 <constraints/>
-                <properties/>
+                <properties>
+                  <text value="ForExample:&#10;  TheYAMLFileShouldBePastedHere: helloWorld"/>
+                </properties>
               </component>
             </children>
           </scrollpane>

@@ -41,7 +41,7 @@ public class YamlToPropertiesAction extends AnAction {
         VirtualFile data = anActionEvent.getData(CommonDataKeys.VIRTUAL_FILE);
         String name = data.getName();
         if(!YAML_PATTERN.matcher(name).matches()) {
-            Messages.showInfoMessage("您必须选中一个Yaml文件","转换失败");
+            Messages.showInfoMessage("You must select a YAML file","Conversion failed");
             return;
         }
         String path = data.getPath();
@@ -56,8 +56,8 @@ public class YamlToPropertiesAction extends AnAction {
             Notifications.Bus.notify(
                     new Notification(
                             "YamlAndProperties",
-                            "转换成功",
-                            "生成成功，请在同级目下寻找: "+yamlFileName,
+                            "Conversion successful",
+                            "Generated successfully, please look in the same directory: "+yamlFileName,
                             NotificationType.INFORMATION
                     )
             );

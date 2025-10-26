@@ -40,7 +40,7 @@ public class PropertiesToYamlAction extends AnAction {
         try {
             String name = data.getName();
             if(!PROPERTIES_FILE_SUFFIX.matcher(name).matches()) {
-                Messages.showInfoMessage("您必须选中一个Properties文件","转换失败");
+                Messages.showInfoMessage("You must select a Properties file","Conversion failed");
                 return;
             }
             String path = data.getPath();
@@ -55,8 +55,8 @@ public class PropertiesToYamlAction extends AnAction {
             Notifications.Bus.notify(
                     new Notification(
                             "YamlAndProperties",
-                            "转换成功",
-                            "生成成功，请在同级目下寻找: "+yamlFileName,
+                            "Conversion successful",
+                            "Generated successfully, please look in the same directory: "+yamlFileName,
                             NotificationType.INFORMATION
                     )
             );

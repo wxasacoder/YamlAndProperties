@@ -1,11 +1,11 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
-    <id>com.wx.YamlAndPropertiesConvertor</id>
+    <id>com.wx.YamlAndProperties</id>
 
     <!-- Public plugin name should be written in Title Case.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/best-practices-for-listing.html#plugin-name -->
-    <name>YamlAndPropertiesConvertor</name>
+    <name>YamlAndProperties</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
     <vendor url="https://www.wx.com">wx</vendor>
@@ -53,7 +53,7 @@
 
         <action id="tool.yamlAndProperties"
                 class="com.wx.yamlandproperties.ConvertWindowAction"
-                text="YamlAndPropertiesConvertor"
+                text="YamlAndProperties"
                 description="convert yaml and properties">
             <add-to-group group-id="ToolsMenu" anchor="last"/>
         </action>
