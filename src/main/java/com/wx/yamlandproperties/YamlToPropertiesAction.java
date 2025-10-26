@@ -3,10 +3,7 @@ package com.wx.yamlandproperties;
 import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationType;
 import com.intellij.notification.Notifications;
-import com.intellij.openapi.actionSystem.ActionUpdateThread;
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.CommonDataKeys;
+import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -29,11 +26,20 @@ public class YamlToPropertiesAction extends AnAction {
 
     private static final Pattern YAML_PATTERN = Pattern.compile(".+(yaml|yml)");
 
+    @Override
+    public void update(@NotNull AnActionEvent event) {
+        Presentation presentation = event.getPresentation();
+        VirtualFile data = event.getData(CommonDataKeys.VIRTUAL_FILE);
+        String name = data.getName();
+        boolean matches = YAML_PATTERN.matcher(name).matches();
+        presentation.setVisible(matches);
+        presentation.setEnabled(matches);
+    }
 
 
     @Override
     public ActionUpdateThread getActionUpdateThread() {
-        return ActionUpdateThread.EDT;
+        return ActionUpdateThread.BGT;
     }
 
     @Override
@@ -66,9 +72,9 @@ public class YamlToPropertiesAction extends AnAction {
         }
     }
 
-    @Override
-    public void update(AnActionEvent e) {
-        // 恒定展示
-        e.getPresentation().setEnabledAndVisible(true);
-    }
+//    @Override
+//    public void update(AnActionEvent e) {
+//        // 恒定展示
+//        e.getPresentation().setEnabledAndVisible(true);
+//    }
 }
