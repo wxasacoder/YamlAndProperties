@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.wx"
-version = "2.4"
+version = "2.4.1"
 
 repositories {
     mavenCentral()
@@ -32,7 +32,7 @@ intellijPlatform {
 //            sinceBuild = "251"
 
             sinceBuild.set("232")
-            untilBuild.set("252.*")
+            untilBuild.set("261.*")
         }
 
         changeNotes = """
